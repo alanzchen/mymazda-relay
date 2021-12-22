@@ -1,0 +1,4 @@
+flask[async]
+pymazda
+requests
+gunicorn
