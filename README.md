@@ -11,10 +11,12 @@ Make `POST` calls to `https://mymazda.herokuapp.com/{endpoint}`, where `endpoint
   "username": your_mazda_email,
   "password": your_mazda_password,
   "vid": internal_vehicle_id,
+  "region": your_region
 }
 ```
 
-To obtain the `vid` for your vehicle, you can first make a `POST` call to `https://mymazda.herokuapp.com/vehicles` with just the `username` and `password` as the JSON payload. After getting a list of vehicles, find `id` associated with it. It will be the `vid` of your future API requests.
+ - `vid`: To obtain the `vid` for your vehicle, you can first make a `POST` call to `https://mymazda.herokuapp.com/vehicles` with just the `username` and `password` as the JSON payload. After getting a list of vehicles, find `id` associated with it. It will be the `vid` of your future API requests.
+ - `region`: If you are living in the US, you can omit this field or fill in `MNAO`. Otherwise, it should be `MME` for EU, and `MJO` for Japan.
 
 Below are some examples of API usage. To see a full list of API endpoints, see `app.py`. 
 
