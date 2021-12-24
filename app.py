@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from urllib.parse import urlparse, parse_qs
 import pymazda
 import requests
@@ -8,7 +8,18 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello_world():
-  return "<p>Your MyMazda Relay is working.</p>"
+  return render_template('index.html')
+
+@app.route("/vehicles_html")
+async def getVehicles_html() -> None:
+  username = request.args.get('username')
+  password = request.args.get('password')
+  region = request.args.get('region') or "MNAO"
+  client = pymazda.Client(username, password, region)
+  vehicles = await client.get_vehicles()
+  # Close the session
+  await client.close()
+  return render_template("vehicle.html", vehicles = vehicles, region = region)
 
 @app.post("/vehicles")
 async def getVehicles() -> None:

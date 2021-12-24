@@ -1,0 +1,6 @@
+<p>Your region code is <b>{{ region }}</b>, and here is a list of your vehicles. Please copy and save the <b>VID</b> the car you want to control.</p>
+<ul>
+{% for v in vehicles %}
+  <li><p>Name: {{ v["modelYear"] }} {{ v["modelName"].title() }} - {{ v["exteriorColorName"].title() }} - VID: <b>{{ v["id"] }}</b> </li>
+{% endfor %}
+<ul>
