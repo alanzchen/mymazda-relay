@@ -134,7 +134,7 @@ async def sendPOIfromURL() -> None:
     ll = q.get('ll')[0].split(',')
     latitude = float(ll[0])
     longitude = float(ll[1])
-  elif u.hostname == "maps.app.goo.gl":
+  elif "goo.gl" in u.hostname:
     res_ = requests.get(r.get('url'))
     latitude, longitude, name = get_google_coordinates(res_.url)
   elif u.hostname == "www.google.com":
