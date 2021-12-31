@@ -33,6 +33,18 @@ async def getVehicles() -> None:
   await client.close()
   return jsonify(vehicles)
 
+@app.post("/vehiclesStatus")
+async def getVehicles() -> None:
+  r = request.json
+  username = r.get('username')
+  password = r.get('password')
+  region = r.get('region') or "MNAO"
+  vid = r.get('vid')
+  client = pymazda.Client(username, password, region)
+  status = await client.get_vehicle_status(vid)
+  await client.close()
+  return jsonify(status)
+
 @app.post("/startEngine")
 async def startEngine() -> None:
   r = request.json
