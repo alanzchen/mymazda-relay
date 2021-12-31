@@ -34,7 +34,7 @@ async def getVehicles() -> None:
   return jsonify(vehicles)
 
 @app.post("/vehiclesStatus")
-async def getVehicles() -> None:
+async def getStatus() -> None:
   r = request.json
   username = r.get('username')
   password = r.get('password')
@@ -44,6 +44,26 @@ async def getVehicles() -> None:
   status = await client.get_vehicle_status(vid)
   await client.close()
   return jsonify(status)
+
+@app.post("/checkDoors")
+async def checkDoors() -> None:
+  r = request.json
+  username = r.get('username')
+  password = r.get('password')
+  region = r.get('region') or "MNAO"
+  vid = r.get('vid')
+  client = pymazda.Client(username, password, region)
+  status = await client.get_vehicle_status(vid)
+  msg = "Doors seem ok."
+  if any(status['doors'].values()):
+    return "Doors open. Please check your vehicle."
+  elif any(status['doorLocks'].values()):
+    msg = "Some doors were unlocked. Will attempt to lock."
+  if any(status['windows'].values()):
+    msg += "Windows were open."
+  await client.lock_doors(vid)
+  await client.close()
+  return msg
 
 @app.post("/startEngine")
 async def startEngine() -> None:
