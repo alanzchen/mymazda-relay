@@ -2,6 +2,12 @@
 
 Mazda Connected Service API wrapper based on pymazda and Flask.
 
+# Deployment 
+
+Docker can be used to deploy the project locally, simply do `docker-compose up -d`. 
+
+This installs the requirements and launchs the flask server behind a `gunicorn` reverse proxy running on port 5001 in a docker container.
+
 # Usage
 
 Make `POST` calls to `https://mymazda.herokuapp.com/{endpoint}`, where `endpoint` could be something like `startEngine`. To make a valid request, you will need to attach a JSON payload with the following fields:
